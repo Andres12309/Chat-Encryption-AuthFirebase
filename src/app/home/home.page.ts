@@ -72,7 +72,7 @@ export class HomePage{
 
   upload(){
     
-    let file = document.getElementById("file").files[0];
+    let file = (<HTMLInputElement>document.getElementById('file')).files[0];
     let ref = this.afStorage.ref('upload'+this.autservice.currentUser.uid+'/'+file.name);
     this.preimagen = true;
     ref.put(file).then(res=>{
