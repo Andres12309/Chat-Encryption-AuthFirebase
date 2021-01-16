@@ -2,8 +2,12 @@ import { Injectable } from '@angular/core';
 import{AngularFireAuth} from '@angular/fire/auth';
 import{AngularFirestore} from '@angular/fire/firestore';
 import firebase from 'firebase/app';
+import "firebase/firestore"
 import { Observable } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
+import * as CryptoJS from 'crypto-js';
 
 
 export interface User {
@@ -18,6 +22,8 @@ export interface Message{
   msg: string;
   fromName:string;
   myMsg:boolean;
+  img:File;
+
 }
 
 @Injectable({
@@ -26,8 +32,9 @@ export interface Message{
 export class AuthService {
 
   currentUser:User = null;
+  msgDesEncryp:string;
 
-  constructor(private AFauth: AngularFireAuth, private afs:AngularFirestore) {
+  constructor(private AFauth: AngularFireAuth, private afs:AngularFirestore, public storage: AngularFireStorage) {
     this.AFauth.onAuthStateChanged(user=>{
       console.log("Change",user);
       this.currentUser=user;
@@ -35,7 +42,6 @@ export class AuthService {
   }
 
   login(email:string,password:string){
-
     return new Promise((resolve,rejected)=>{
       this.AFauth.signInWithEmailAndPassword(email,password).then(user =>{
         resolve(user)
@@ -46,7 +52,7 @@ export class AuthService {
   async singUp(email:string,password:string){
     const credential = await this.AFauth.createUserWithEmailAndPassword(email,password);
 
-    console.log("Res:"+credential)
+    console.log("Credential:"+credential)
 
     const uid = credential.user.uid;
     
@@ -58,9 +64,10 @@ export class AuthService {
     });
   }
 
-  addChatMessage(msg){
+  addChatMessage(msg,img){
     return this.afs.collection("messages").add({
       msg,
+      img,
       from:this.currentUser.uid,
       createAt: firebase.firestore.FieldValue.serverTimestamp()
     })
@@ -78,6 +85,8 @@ export class AuthService {
       }),
       map(messages => {
         for(let m of messages){
+          this.msgDesEncryp = CryptoJS.AES.decrypt(m.msg, "AndresExamen").toString(CryptoJS.enc.Utf8);
+          m.msg = this.msgDesEncryp;
           m.fromName = this.getUserForMsg(m.from,users);
           m.myMsg = this.currentUser.uid == m.from;
         }
@@ -92,14 +101,33 @@ export class AuthService {
   }
 
   getUserForMsg(msgFromId, users:User[]):string{
-    
     for(let usr of users){
+      console.log("user.uid",usr.uid);
+      console.log("msgFromId",msgFromId);
       if(usr.uid == msgFromId){
+        console.log("email",usr.email);
         return usr.email;
       }
     }
 
-    return "Deleted";
+    return "Anonimo";
+  }
+
+  uploadImage(f: any, path: string, name: string): Promise<string>{
+    return new Promise( resolve => {
+      const fPath = path + '/' + name;
+      const ref =  this.storage.ref(fPath);
+      const Task =  ref.put(f);
+      Task.snapshotChanges().pipe(
+        finalize( () => {
+          ref.getDownloadURL().subscribe(res => {
+            const downUrl = res;
+            resolve(downUrl);
+            return;
+          });
+        })
+      ).subscribe();
+    });
   }
 
   logout(){
