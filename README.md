@@ -57,7 +57,7 @@ _Este tiene una las funciones de chat que interactua con su html respectivo, tie
 
 ### SERVICIOS 📋
 
-_Este tiene los metodos para conectar los servicios anteriores a los servicios de firebase, **auth.service.ts** posee toda la logica de validar usuario para el ingreso y el registro denominadas **login** y **singUp** respectivamente, ademas posee el metodo de agregar mensaje **addChatMessage** y asu ves obtener los mensajes**getChatMessages** de cada usuario, ademas un metodo para obtener el usuario que esta enviando los mensajes denominada **getUserForMsg** y el metodo de invalidar la sesion con firebase nombrada **logout**_
+_Este tiene los metodos para conectar los servicios anteriores a los servicios de firebase, **auth.service.ts** posee toda la logica de validar usuario para el ingreso y el registro denominadas **login** y **singUp** respectivamente, ademas posee el metodo de agregar mensaje **addChatMessage** y a su vez obtener los mensajes **getChatMessages** de cada usuario, ademas un metodo para obtener el usuario que esta enviando los mensajes denominada **getUserForMsg** y el metodo de invalidar la sesion con firebase nombrada **logout**_
 
 ## Ejecución del proyecto🔩
 
