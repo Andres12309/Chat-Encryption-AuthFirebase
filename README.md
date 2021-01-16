@@ -46,7 +46,7 @@ ionic serve
 
 ## APK ⚙️
 
-_En el proyecto se encuantra un apk, puedes usarla en cualquier dispositivo android o a su vez usar un emulador_
+_En el proyecto se encuantra un archivo .apk, puedes usarla en cualquier dispositivo android o a su vez usar un emulador_
 
 ### Build APK 🔩
 
