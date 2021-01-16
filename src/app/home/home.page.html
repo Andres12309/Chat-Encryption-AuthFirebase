@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Chateando...</ion-title>
-    <ion-buttons slot="end" >
+    <ion-title>{{user}} Chateando...</ion-title>
+    <ion-buttons slot="end">
       <ion-button fill="clear" (click)="logout()">
         <ion-icon name="log-out" slot="icon-only"></ion-icon>
       </ion-button>
@@ -13,20 +13,25 @@
   <ion-grid>
     <ion-row *ngFor="let message of messages | async">
       <ion-col size="9" class="message" [offset]="message.myMsg ? 3 : 0"
-      [ngClass]="{'my-message':message.myMsg,'other-message':!message.myMsg}">
-      
-      <b>{{message.fromName}}</b><br>
-      <span>{{message.msg}}</span>
-      <div class="time ion-text-right"><br>{{message.createAt?.toMillis() | date:'short'}}</div>
-    </ion-col>
+        [ngClass]="{'my-message':message.myMsg,'other-message':!message.myMsg}">
+
+        <b>{{message.fromName}}:</b><br>
+        <span>{{message.msg}}</span>
+        <img *ngIf="img !== ''" [src]="msg" id="idea-img">
+        <div class="time ion-text-right"><br>{{message.createAt?.toMillis() | date:'short'}}</div>
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
-    <ion-textarea autoGrow="true" row="1" maxLength="500" placeholder="Mensaje..."  [(ngModel)]="newMsg"></ion-textarea>
-    <ion-buttons slot="end" >
+    <ion-textarea autoGrow="true" row="1" maxLength="500" placeholder="Mensaje..." [(ngModel)]="newMsg"></ion-textarea>
+    <ion-button fill="clear" slot="end">
+      <ion-icon slot="icon-only" name="document-attach-outline"></ion-icon>
+      <input (change)="newMessageImage($event)" id="file-upload" type="file" style="display:none;" />
+    </ion-button>
+    <ion-buttons slot="end">
       <ion-button (click)="sendMessage()">
         <ion-icon name="send"></ion-icon>
       </ion-button>
