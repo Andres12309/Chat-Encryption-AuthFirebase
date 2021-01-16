@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>IKChat</name>
+    <name>IAChat</name>
     <description>Chat with images</description>
     <author email="juan.proano@epn.edu.ec" href="http://ionicframework.com/">Andres</author>
     <content src="index.html" />
