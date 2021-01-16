@@ -24,7 +24,7 @@ export class HomePage{
   uploadProgress= 0;
   img = '';
   user='';
-  mostrar=false;
+  preimagen=false;
 
 
   constructor(private autservice:AuthService,
@@ -45,7 +45,7 @@ export class HomePage{
       await loading.present();
       const res = await this.autservice.uploadImage(this.newFile, "/Messages", this.autservice.currentUser.uid);
       this.img = res;
-      this.mostrar=false;
+      this.preimagen=false;
     }
     this.autservice.addChatMessage(this.msgEncryption,this.img).then(()=>{
       this.newMsg = '';
