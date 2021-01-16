@@ -56,21 +56,13 @@ _Puedes realizar un build para cualquier platafor directamente del proyecto_
 ionic cordova build <platform>
 ```
 
-### Y las pruebas de estilo de codificación ⌨️
-
-_Explica que verifican estas pruebas y por qué_
-
-```
-Da un ejemplo
-```
-
 ## Autor ✒️
 
 _Este proyecto fue realizado_
 
 * **Andrés Proaño** - *Examen* - [Andres](https://github.com/Andres12309)
 
-También puedes mirar el video del [funcionamiento]() de este proyecto en youtube. 
+También puedes mirar el video del funcionamiento de este proyecto en [youtube](). 
 
 ## Gracias 🎁
 
