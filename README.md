@@ -8,7 +8,7 @@ _Este es un proyecto de chat general que esta cifrado los mensajes y las rutas h
 
 Mira **enviroments** para conocer las credenciales que uso para firebase.
 
-**También puedes mirar el video del funcionamiento de este proyecto en [youtube](https://youtu.be/Rd3iWXREEhs).***
+**También puedes mirar el video del funcionamiento de este proyecto en [youtube](https://youtu.be/Rd3iWXREEhs).**
 
 ### Instrucciones 📋
 
