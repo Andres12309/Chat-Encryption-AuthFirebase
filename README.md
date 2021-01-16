@@ -85,7 +85,7 @@ _Este proyecto fue realizado_
 
 * **Andrés Proaño** - *Examen* - [Andres](https://github.com/Andres12309)
 
-También puedes mirar el video del funcionamiento de este proyecto en [youtube](). 
+También puedes mirar el video del funcionamiento de este proyecto en [youtube](https://youtu.be/Rd3iWXREEhs). 
 
 ## Gracias 🎁
 
