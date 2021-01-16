@@ -27,9 +27,9 @@
 <ion-footer>
   <ion-toolbar>
     <ion-textarea autoGrow="true" row="1" maxLength="500" placeholder="Mensaje..."  [(ngModel)]="newMsg"></ion-textarea>
-    <ion-button fill="clear" slot="end">
+    <ion-button fill="clear" slot="end" (click)="preimagen = true">
       <ion-icon slot="icon-only" name="document-attach-outline"></ion-icon>
-      <input (change)="newMesgImg($event)" id="file" type="file" multiple (click)="preimagen = true" style="width: 10px;"/>
+      <input (change)="upload()" id="file" type="file" multiple style="width: 46px;" (click)="preimagen = true"/>
     </ion-button>
     <ion-buttons slot="end">
       <ion-button (click)="sendMessage()">
