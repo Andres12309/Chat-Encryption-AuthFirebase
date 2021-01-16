@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import {firebaseConfig} from "../environments/environment";
 import {AngularFireModule} from "@angular/fire";
 import {AngularFireAuthModule} from "@angular/fire/auth";
-import { File } from '@ionic-native/file/ngx';
+import { Camera, CameraOptions } from '@ionic-native/Camera/ngx';
 import{AngularFireStorageModule} from '@angular/fire/storage';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
@@ -28,6 +28,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

@@ -22,6 +22,8 @@ export interface Message{
   msg: string;
   fromName:string;
   myMsg:boolean;
+  img:File;
+
 }
 
 @Injectable({
@@ -62,9 +64,10 @@ export class AuthService {
     });
   }
 
-  addChatMessage(msg){
+  addChatMessage(msg,img){
     return this.afs.collection("messages").add({
       msg,
+      img,
       from:this.currentUser.uid,
       createAt: firebase.firestore.FieldValue.serverTimestamp()
     })

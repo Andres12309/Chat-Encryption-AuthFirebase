@@ -17,7 +17,7 @@
 
         <b>{{message.fromName}}:</b><br>
         <span>{{message.msg}}</span>
-        <img *ngIf="img !== ''" [src]="msg" id="idea-img">
+        <img *ngIf="message.img !== ''" [src]="message.img" id="idea-img">
         <div class="time ion-text-right"><br>{{message.createAt?.toMillis() | date:'short'}}</div>
       </ion-col>
     </ion-row>
@@ -26,10 +26,10 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-textarea autoGrow="true" row="1" maxLength="500" placeholder="Mensaje..." [(ngModel)]="newMsg"></ion-textarea>
-    <ion-button fill="clear" slot="end">
+    <ion-textarea autoGrow="true" row="1" maxLength="500" placeholder="Mensaje..."  [(ngModel)]="newMsg"></ion-textarea>
+    <ion-button slot="end">
       <ion-icon slot="icon-only" name="document-attach-outline"></ion-icon>
-      <input (change)="newMessageImage($event)" id="file-upload" type="file" style="display:none;" />
+      <input (change)="newMesgImg()" id="file" type="file" multiple (click)="mostrar = true" style="width: 25px;"/>
     </ion-button>
     <ion-buttons slot="end">
       <ion-button (click)="sendMessage()">
@@ -37,4 +37,5 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+  <img *ngIf="mostrar === true" [src]="img" id="idea-img">
 </ion-footer>

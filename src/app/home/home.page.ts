@@ -1,18 +1,18 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonContent, LoadingController, PopoverController, ToastController } from '@ionic/angular';
+import { IonContent, LoadingController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { AuthService, Message } from '../servicios/auth.service';
-import { File } from '@ionic-native/file/ngx';
-import { AngularFireStorage } from '@angular/fire/storage';
 import * as CryptoJS from 'crypto-js';
+import { AngularFireStorage } from '@angular/fire/storage';
+
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage{
 
   @ViewChild(IonContent) content: IonContent;
 
@@ -20,15 +20,17 @@ export class HomePage {
   newMsg= '';
   msgEncryption:'';
   passwordAES = 'AndresExamen';
-  newFile=null;
+  newFile='';
   uploadProgress= 0;
   img = '';
   user='';
+  mostrar=false;
 
 
   constructor(private autservice:AuthService,
     private router:Router,
-    public loadingCtrl: LoadingController) {}
+    public loadingCtrl: LoadingController,
+    private afStorage: AngularFireStorage) {}
   
   ngOnInit(){
     this.messages = this.autservice.getChatMessages();
@@ -43,18 +45,20 @@ export class HomePage {
       await loading.present();
       const res = await this.autservice.uploadImage(this.newFile, "/Messages", this.autservice.currentUser.uid);
       this.img = res;
+      this.mostrar=false;
     }
-    this.autservice.addChatMessage(this.msgEncryption).then(()=>{
+    this.autservice.addChatMessage(this.msgEncryption,this.img).then(()=>{
       this.newMsg = '';
-      this.img='';
       this.msgEncryption='';
+      this.img = '';
       this.newFile='';
       this.content.scrollToBottom();
       loading.dismiss();
     })
   }
 
-  newMessageImage(event: any){
+  newMesgImg(event: any){
+    console.log("evento",event)
     if (event.target.files && event.target.files[0]){
       this.newFile = event.target.files[0];
       const reader = new FileReader();
@@ -64,6 +68,19 @@ export class HomePage {
       reader.readAsDataURL(event.target.files[0]);
 
     }
+  }
+
+  uploadFile(){
+    
+    let file = document.getElementById("file").files[0];
+    let ref = this.afStorage.ref('upload'+this.autservice.currentUser.uid+'/'+file.name);
+    ref.put(file).then(res=>{
+      ref.getDownloadURL().subscribe(url=>{
+        this.img = url
+      });
+    }).catch(err=>{
+      console.log(err)
+    });
   }
 
   /*async uploadFile(f: FileEntry){
@@ -89,13 +106,6 @@ export class HomePage {
       toast.present();
     });
   }*/
-
-  getMimeType(fileExt){
-    if(fileExt == 'wav')return { type: 'audio/wav' };
-    else if( fileExt == 'jpg') return { type: 'image/jpg' };
-    else if( fileExt == 'mp4') return { type: 'image/mp4' };
-    else if( fileExt == 'MOV') return { type: 'image/quicktime' };
-  }
 
   logout(){
     this.autservice.logout().then(()=>{
