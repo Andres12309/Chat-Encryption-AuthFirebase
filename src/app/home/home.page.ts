@@ -41,7 +41,12 @@ export class HomePage{
     const loading = await this.loadingCtrl.create();
 
     this.msgEncryption = CryptoJS.AES.encrypt(this.newMsg.trim(),this.passwordAES.trim()).toString();
-    
+    /*if (this.newFile !== undefined){
+      await loading.present();
+      const res = await this.autservice.uploadImage(this.newFile, "/Messages", this.autservice.currentUser.uid);
+      this.img = res;
+      this.preimagen=false;
+    }*/
     this.autservice.addChatMessage(this.msgEncryption,this.img).then(()=>{
       this.newMsg = '';
       this.msgEncryption='';
@@ -66,16 +71,18 @@ export class HomePage{
   }
 
   upload(){
+    
     let file = document.getElementById("file").files[0];
     let ref = this.afStorage.ref('upload'+this.autservice.currentUser.uid+'/'+file.name);
-    this.preimagen = true
+    this.preimagen = true;
     ref.put(file).then(res=>{
       ref.getDownloadURL().subscribe(url=>{
-        this.preimagen = false;
+        this.preimagen = false
         this.img = url
       });
     }).catch(err=>{
       console.log(err)
+      this.preimagen = false;
     });
   }
 
