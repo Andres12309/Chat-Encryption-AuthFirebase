@@ -36,7 +36,7 @@ npm install @ionic-native/firebase
 
 _Una vez realizado todo lo anterior puedes navegar en el codigo, tiene algunos servicios y la carpeta principal de chat que esta en home.page.html y home.page.ts_
 
-## Ejucion del proyecto🔩
+## Ejecución del proyecto🔩
 
 _Compila el proyecto_
 
