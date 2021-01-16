@@ -8,6 +8,7 @@ _Este es un proyecto de chat general que esta cifrado los mensajes y las rutas h
 
 Mira **enviroments** para conocer las credenciales que uso para firebase.
 
+**También puedes mirar el video del funcionamiento de este proyecto en [youtube](https://youtu.be/Rd3iWXREEhs).***
 
 ### Instrucciones 📋
 
@@ -84,8 +85,6 @@ ionic cordova build <platform>
 _Este proyecto fue realizado_
 
 * **Andrés Proaño** - *Examen* - [Andres](https://github.com/Andres12309)
-
-También puedes mirar el video del funcionamiento de este proyecto en [youtube](https://youtu.be/Rd3iWXREEhs). 
 
 ## Gracias 🎁
 
